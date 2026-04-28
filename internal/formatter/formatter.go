@@ -38,6 +38,21 @@ func (f *Formatter) Write(results []linter.Result) error {
 	}
 }
 
+// Summary returns a brief summary string of the results, e.g. "3 ok, 1 error, 2 warnings".
+func (f *Formatter) Summary(results []linter.Result) string {
+	ok, errs, warns := 0, 0, 0
+	for _, r := range results {
+		if !r.Valid {
+			errs++
+		} else if len(r.Warnings) > 0 {
+			warns++
+		} else {
+			ok++
+		}
+	}
+	return fmt.Sprintf("%d ok, %d error(s), %d warning(s)", ok, errs, warns)
+}
+
 func (f *Formatter) writeText(results []linter.Result) error {
 	for _, r := range results {
 		status := "OK"
