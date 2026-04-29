@@ -5,7 +5,17 @@
 // ranges (a-b), and lists (a,b,c). Month and day-of-week fields are rendered
 // using their natural language names where applicable.
 //
-// Example usage:
+// # Field Types
+//
+// The package defines the following field types for use with [Describe]:
+//
+//   - [Minute]     – the minute field (0–59)
+//   - [Hour]       – the hour field (0–23)
+//   - [DayOfMonth] – the day-of-month field (1–31)
+//   - [Month]      – the month field (1–12 or JAN–DEC)
+//   - [DayOfWeek]  – the day-of-week field (0–7 or SUN–SAT)
+//
+// # Example usage
 //
 //	import "crontab-lint/internal/humanizer"
 //
