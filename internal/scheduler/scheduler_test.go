@@ -89,3 +89,16 @@ func TestNext_MonthConstrained(t *testing.T) {
 		t.Errorf("expected %v, got %v", expected, next)
 	}
 }
+
+func TestNext_DayOfWeekConstrained(t *testing.T) {
+	// "0 8 * * 1 /bin/true" — 08:00 every Monday.
+	// base is 2024-01-01 (Monday), so the next occurrence is 2024-01-08.
+	next, err := scheduler.Next("0 8 * * 1 /bin/true", base)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	expected := time.Date(2024, 1, 8, 8, 0, 0, 0, time.UTC)
+	if !next.Equal(expected) {
+		t.Errorf("expected %v, got %v", expected, next)
+	}
+}
