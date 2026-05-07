@@ -91,3 +91,19 @@ func Compare(before, after Snapshot) ([]Diff, error) {
 	}
 	return diffs, nil
 }
+
+// HasChanges returns true if any field differs between the two snapshots.
+// It is a convenience wrapper around Compare for callers that only need
+// a boolean result without inspecting individual field diffs.
+func HasChanges(before, after Snapshot) (bool, error) {
+	diffs, err := Compare(before, after)
+	if err != nil {
+		return false, err
+	}
+	for _, d := range diffs {
+		if d.Changed {
+			return true, nil
+		}
+	}
+	return false, nil
+}
